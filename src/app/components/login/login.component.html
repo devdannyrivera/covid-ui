@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-8 mx-auto">
+      <div class="card-group">
+        <div class="card p-4">
+          <div class="card-body">
+            <form [formGroup]="form">
+              <div
+                *ngIf="errorMessage !== ''"
+                class="alert alert-danger"
+                role="alert">
+                {{ errorMessage }}
+              </div>
+              <h1>Sing In</h1>
+              <p class="text-muted">Access to your account</p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><fa-icon [icon]="faUser"></fa-icon
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Email"
+                  autocomplete="email"
+                  formControlName="email" />
+              </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><fa-icon [icon]="faLock"></fa-icon
+                  ></span>
+                </div>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  autocomplete="current-password"
+                  formControlName="password" />
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <button
+                    type="button"
+                    class="btn btn-primary px-4"
+                    (click)="onSubmit()">
+                    Sign In
+                  </button>
+                </div>
+                <div class="col-6 d-flex">
+                  <button
+                    type="button"
+                    class="btn btn-link px-0 position-right">
+                    Sing Up
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
