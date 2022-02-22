@@ -13,7 +13,7 @@ export class AuthService {
   }
 
   register(user: { name: string; email: string; password: string }) {
-    return this.service.post('auth/register', user).pipe(map(result => result));
+    return this.service.post('auth/signup', user).pipe(map(result => result));
   }
 
   setLocalStorage(payload: any, token: string) {
