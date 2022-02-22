@@ -11,8 +11,27 @@
                 role="alert">
                 {{ errorMessage }}
               </div>
-              <h1>Sing In</h1>
-              <p class="text-muted">Access to your account</p>
+              <div
+                *ngIf="successMessage !== ''"
+                class="alert alert-success"
+                role="alert">
+                {{ successMessage }}
+              </div>
+              <h1>Sing Up</h1>
+              <p class="text-muted">Create your account</p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><fa-icon [icon]="faUser"></fa-icon
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Name"
+                  autocomplete="name"
+                  formControlName="name" />
+              </div>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
@@ -39,20 +58,32 @@
                   autocomplete="current-password"
                   formControlName="password" />
               </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><fa-icon [icon]="faLock"></fa-icon
+                  ></span>
+                </div>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Retype Password"
+                  formControlName="passwordrepeat" />
+              </div>
               <div class="row">
                 <div class="col-6">
                   <button
                     type="button"
                     class="btn btn-primary px-4"
                     (click)="onSubmit()">
-                    Sign In
+                    Sign Up
                   </button>
                 </div>
                 <div class="col-6 d-flex">
                   <a
                     class="text-yellow btn btn-link position-right"
-                    routerLink="/register"
-                    >Sign Up</a
+                    routerLink="/"
+                    >Sign In</a
                   >
                 </div>
               </div>
