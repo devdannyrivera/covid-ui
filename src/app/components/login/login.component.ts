@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,7 +14,11 @@ export class LoginComponent {
   faLock = faLock;
   form: FormGroup = new FormGroup({});
   errorMessage: string = '';
-  constructor(private formBuilder: FormBuilder, private service: AuthService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: AuthService,
+    private router: Router
+  ) {
     this.buildForm();
   }
 
@@ -55,6 +60,7 @@ export class LoginComponent {
       next: result => {
         const { user, token } = result;
         this.service.setLocalStorage(user, token);
+        this.router.navigateByUrl('/');
       },
       error: error => {
         const { msg } = error.error;

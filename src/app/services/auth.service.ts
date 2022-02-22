@@ -18,6 +18,6 @@ export class AuthService {
 
   setLocalStorage(payload: any, token: string) {
     localStorage.setItem('user', JSON.stringify(payload));
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('token', token);
   }
 }
