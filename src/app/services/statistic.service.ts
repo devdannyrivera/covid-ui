@@ -18,6 +18,25 @@ export class StatisticService {
       );
   }
 
+  getByCountry(id: string) {
+    return this.service.get(`statistic/${id}`).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  updateCountryStats(
+    id: string,
+    cases: { deaths: any; tests: any; cases: any }
+  ) {
+    return this.service.post(`statistic/${id}`, cases).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
   sync() {
     return this.service.get('sync').pipe(
       map(result => {

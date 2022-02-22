@@ -1,0 +1,82 @@
+<div class="containe-fluid p-3">
+  <div class="div">
+    <div class="card p-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8">
+            <h1>{{ data.country }}</h1>
+            <div class="d-flex">
+              <p>
+                <span class="text-bold">Continent: </span>
+                {{ data.continent }}
+              </p>
+              <p class="mx-5">
+                <span class="text-bold">Population: </span>
+                {{ data.population | number }}
+              </p>
+            </div>
+            <div class="row stats-container">
+              <h5>Stats</h5>
+              <div>
+                <div>
+                  <h6>Tests ({{ data.tests.total || 0 | number }})</h6>
+                  <div class="mx-5 mt-2">
+                    <p>
+                      <span class="text-bold">1M_pop: </span>
+                      {{ data.tests['1M_pop'] }}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div>
+                  <h6>Cases ({{ data.cases.total || 0 | number }})</h6>
+                  <div class="mx-5 mt-2">
+                    <p>
+                      <span class="text-bold">New: </span>
+                      {{ data.cases.new }}
+                    </p>
+                    <p>
+                      <span class="text-bold">Active: </span>
+                      {{ data.cases.active || 0 | number }}
+                    </p>
+                    <p>
+                      <span class="text-bold">Critical: </span>
+                      {{ data.cases.critical || 0 | number }}
+                    </p>
+                    <p>
+                      <span class="text-bold">Recovered: </span>
+                      {{ data.cases.recovered || 0 | number }}
+                    </p>
+                    <p>
+                      <span class="text-bold">1M_pop: </span>
+                      {{ data.cases['1M_pop'] }}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div>
+                  <h6>Deaths ({{ data.deaths.total || 0 | number }})</h6>
+                  <div class="mx-5 mt-2">
+                    <p>
+                      <span class="text-bold">New: </span>
+                      {{ data.deaths.new }}
+                    </p>
+                    <p>
+                      <span class="text-bold">1M_pop: </span>
+                      {{ data.deaths['1M_pop'] }}
+                    </p>
+                  </div>
+                </div>
+                <hr />
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <app-country-static-form
+              [currentStat]="data"></app-country-static-form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,8 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CountryStatiscticInfoComponent } from './components/country-statisctic-info/country-statisctic-info.component';
+import { CountryStaticFormComponent } from './components/country-static-form/country-static-form.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    CountryStatiscticInfoComponent,
+    CountryStaticFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -38,11 +38,11 @@
         <td>{{ row.cases.total | number }}</td>
         <td>{{ row.deaths.total | number }}</td>
         <td class="text-center">
-          <button class="btn btn-primary mx-3">
-            <fa-icon [icon]="faEye"></fa-icon>
-          </button>
-          <button class="btn btn-warning">
-            <fa-icon [icon]="faPen"></fa-icon>
+          <button class="btn btn-primary mx-3" (click)="getMoreInfo(row._id)">
+            <span
+              >More Info
+              <fa-icon [icon]="faInfo"></fa-icon>
+            </span>
           </button>
         </td>
       </tr>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatisticService } from 'src/app/services/statistic.service';
-import { faEye, faPen, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faInfo, faSync } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,8 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  faEye = faEye;
-  faPen = faPen;
+  faInfo = faInfo;
   faSync = faSync;
   statistics: any;
 
@@ -34,7 +33,6 @@ export class HomeComponent implements OnInit {
   }
 
   loadData(search = '', page = 1, size = 100) {
-    this.statistics = [];
     this.service.get(search, page, size).subscribe({
       next: result => {
         let { statistics } = result.body;
@@ -54,14 +52,16 @@ export class HomeComponent implements OnInit {
     this.service.sync().subscribe({
       next: result => {
         const { msg } = result.body;
+        this.loadData();
         this.toastr.success(msg);
       },
       error: error => {
         console.log(error);
       },
-      complete: () => {
-        this.loadData();
-      },
     });
+  }
+
+  getMoreInfo(countryId: string) {
+    this.router.navigateByUrl(`country/${countryId}`);
   }
 }
