@@ -64,7 +64,7 @@ export class CountryStaticFormComponent implements OnInit {
     const newActiveCases = this.newActiveCasesField?.value || 0;
     const newCriticalCases = this.newCriticalCasesField?.value || 0;
     const newRecoveredCases = this.newRecoveredCasesField?.value || 0;
-
+    const newCases = newActiveCases + newCriticalCases + newRecoveredCases;
     if (
       !(
         newDeaths +
@@ -80,11 +80,13 @@ export class CountryStaticFormComponent implements OnInit {
 
     this.currentStat.deaths.total += newDeaths;
     this.currentStat.tests.total += newTests;
-    this.currentStat.cases.total +=
-      newActiveCases + newCriticalCases + newRecoveredCases;
+    this.currentStat.cases.total += newCases;
     this.currentStat.cases.active += newActiveCases;
     this.currentStat.cases.critical += newCriticalCases;
     this.currentStat.cases.recovered += newRecoveredCases;
+
+    newDeaths > 0 ? (this.currentStat.deaths.new = `+${newDeaths}`) : '';
+    newCases > 0 ? (this.currentStat.cases.new = `+${newCases}`) : '';
     this.saveData();
     return true;
   }
