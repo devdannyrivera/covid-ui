@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StatisticService } from 'src/app/services/statistic.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-country-statisctic-info',
@@ -13,6 +14,7 @@ export class CountryStatiscticInfoComponent implements OnInit {
   data: any;
   constructor(
     private route: ActivatedRoute,
+    private authService: AuthService,
     private service: StatisticService,
     private toastr: ToastrService,
     private router: Router
@@ -33,8 +35,23 @@ export class CountryStatiscticInfoComponent implements OnInit {
       },
       error: error => {
         const { msg } = error.error;
-        this.router.navigateByUrl('/');
-        this.toastr.error(msg);
+        const { status } = error;
+
+        if (status == 401 && msg != 'x-api-token header not found') {
+          this.authService.refreshToken().subscribe({
+            next: response => {
+              const { token } = response;
+              this.authService.updateToken(token);
+              this.loadData();
+            },
+            error: () => {
+              this.toastr.error('You have to signin');
+            },
+          });
+        } else {
+          this.router.navigateByUrl('/');
+          this.toastr.error(msg);
+        }
       },
     });
   }

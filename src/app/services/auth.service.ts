@@ -16,8 +16,20 @@ export class AuthService {
     return this.service.post('auth/signup', user).pipe(map(result => result));
   }
 
-  setLocalStorage(payload: any, token: string) {
+  refreshToken() {
+    const refreshToken = localStorage.getItem('refreshToken') || '';
+    return this.service
+      .post('auth/refresh-token', { refreshToken })
+      .pipe(map(result => result));
+  }
+
+  setLocalStorage(payload: any, token: string, refreshToken: string) {
     localStorage.setItem('user', JSON.stringify(payload));
+    localStorage.setItem('token', token);
+    localStorage.setItem('refreshToken', refreshToken);
+  }
+
+  updateToken(token: string) {
     localStorage.setItem('token', token);
   }
 }

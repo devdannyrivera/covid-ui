@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { StatisticService } from 'src/app/services/statistic.service';
 import { faInfo, faSync } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private service: StatisticService,
+    private authService: AuthService,
     private toastr: ToastrService
   ) {}
 
@@ -39,7 +41,24 @@ export class HomeComponent implements OnInit {
         this.statistics = statistics;
       },
       error: error => {
-        this.toastr.error(error);
+        const { status } = error;
+        const { msg } = error.error;
+
+        if (status == 401 && msg != 'x-api-token header not found') {
+          this.authService.refreshToken().subscribe({
+            next: response => {
+              const { token } = response;
+              this.authService.updateToken(token);
+              this.loadData();
+            },
+            error: () => {
+              this.toastr.error('You have to signin');
+            },
+          });
+        } else {
+          this.toastr.error(msg);
+          this.sendToLogin();
+        }
       },
     });
   }

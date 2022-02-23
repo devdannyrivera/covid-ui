@@ -13,7 +13,6 @@ export class AppService {
 
   get(url: string) {
     this.getHeader();
-    console.log(this.headers);
     return this.http
       .get<any>(`${environment.apiUrl}/api/${url}`, {
         headers: this.headers,

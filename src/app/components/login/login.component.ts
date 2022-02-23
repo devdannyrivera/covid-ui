@@ -58,8 +58,8 @@ export class LoginComponent {
 
     this.service.login({ email, password }).subscribe({
       next: result => {
-        const { user, token } = result;
-        this.service.setLocalStorage(user, token);
+        const { user, token, refreshToken } = result;
+        this.service.setLocalStorage(user, token, refreshToken);
         this.router.navigateByUrl('/');
       },
       error: error => {

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import { StatisticService } from 'src/app/services/statistic.service';
 
 @Component({
@@ -13,7 +15,9 @@ export class CountryStaticFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private service: StatisticService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.buildForm();
   }
@@ -82,7 +86,23 @@ export class CountryStaticFormComponent implements OnInit {
         },
         error: error => {
           const { msg } = error.error;
-          this.toastr.error(msg);
+          const { status } = error;
+
+          if (status == 401 && msg != 'x-api-token header not found') {
+            this.authService.refreshToken().subscribe({
+              next: response => {
+                const { token } = response;
+                this.authService.updateToken(token);
+                this.saveData();
+              },
+              error: () => {
+                this.toastr.error('You have to signin');
+              },
+            });
+          } else {
+            this.router.navigateByUrl('/');
+            this.toastr.error(msg);
+          }
         },
       });
   }
