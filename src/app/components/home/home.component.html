@@ -22,7 +22,6 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Country</th>
-        <th scope="col">Population</th>
         <th scope="col">Tests</th>
         <th scope="col">Cases</th>
         <th scope="col">Deaths</th>
@@ -33,7 +32,6 @@
       <tr *ngFor="let row of statistics; let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ row.country }}</td>
-        <td>{{ row.population | number }}</td>
         <td>{{ row.tests.total | number }}</td>
         <td>{{ row.cases.total | number }}</td>
         <td>{{ row.deaths.total | number }}</td>
