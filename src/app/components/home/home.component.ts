@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatisticService } from 'src/app/services/statistic.service';
-import { faInfo, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  faInfo = faInfo;
   faSync = faSync;
   statistics: any;
   currentPage: number = 1;
@@ -63,7 +62,6 @@ export class HomeComponent implements OnInit {
               },
             });
           } else {
-            this.toastr.error(msg);
             this.sendToLogin();
           }
         },

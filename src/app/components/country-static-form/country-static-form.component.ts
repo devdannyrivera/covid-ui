@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,7 @@ import { StatisticService } from 'src/app/services/statistic.service';
   templateUrl: './country-static-form.component.html',
   styleUrls: ['./country-static-form.component.scss'],
 })
-export class CountryStaticFormComponent implements OnInit {
+export class CountryStaticFormComponent {
   form: FormGroup = new FormGroup({});
   constructor(
     private formBuilder: FormBuilder,
@@ -47,10 +47,6 @@ export class CountryStaticFormComponent implements OnInit {
   }
   private get newDeathsField() {
     return this.form.get('newDeaths');
-  }
-
-  ngOnInit(): void {
-    console.log(this.currentStat);
   }
 
   onSubmit() {

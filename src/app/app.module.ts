@@ -13,6 +13,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { CountryStatiscticInfoComponent } from './components/country-statisctic-info/country-statisctic-info.component';
 import { CountryStaticFormComponent } from './components/country-static-form/country-static-form.component';
 import { PaginationModule, PaginationConfig } from 'ngx-bootstrap/pagination';
+import { HeaderComponent } from './components/header/header.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,7 @@ import { PaginationModule, PaginationConfig } from 'ngx-bootstrap/pagination';
     HomeComponent,
     CountryStatiscticInfoComponent,
     CountryStaticFormComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,13 @@ import { PaginationModule, PaginationConfig } from 'ngx-bootstrap/pagination';
     ToastrModule.forRoot(),
     PaginationModule,
   ],
-  providers: [PaginationConfig],
+  providers: [
+    PaginationConfig,
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

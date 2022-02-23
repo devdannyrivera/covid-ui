@@ -29,6 +29,10 @@ export class AuthService {
     localStorage.setItem('refreshToken', refreshToken);
   }
 
+  cleanStorage() {
+    localStorage.clear();
+  }
+
   updateToken(token: string) {
     localStorage.setItem('token', token);
   }
