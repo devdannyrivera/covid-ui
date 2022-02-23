@@ -14,6 +14,10 @@ export class HomeComponent implements OnInit {
   faInfo = faInfo;
   faSync = faSync;
   statistics: any;
+  currentPage: number = 1;
+  itemsPerPage: number = 25;
+  totalPages: number = 1;
+  search: string = '';
 
   constructor(
     private router: Router,
@@ -34,37 +38,41 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  loadData(search = '', page = 1, size = 100) {
-    this.service.get(search, page, size).subscribe({
-      next: result => {
-        let { statistics } = result.body;
-        this.statistics = statistics;
-      },
-      error: error => {
-        const { status } = error;
-        const { msg } = error.error;
+  loadData() {
+    this.service
+      .get(this.search, this.currentPage, this.itemsPerPage)
+      .subscribe({
+        next: result => {
+          let { statistics, total } = result.body;
+          this.totalPages = Math.ceil(total / this.itemsPerPage);
+          this.statistics = statistics;
+        },
+        error: error => {
+          const { status } = error;
+          const { msg } = error.error;
 
-        if (status == 401 && msg != 'x-api-token header not found') {
-          this.authService.refreshToken().subscribe({
-            next: response => {
-              const { token } = response;
-              this.authService.updateToken(token);
-              this.loadData();
-            },
-            error: () => {
-              this.toastr.error('You have to signin');
-            },
-          });
-        } else {
-          this.toastr.error(msg);
-          this.sendToLogin();
-        }
-      },
-    });
+          if (status == 401 && msg != 'x-api-token header not found') {
+            this.authService.refreshToken().subscribe({
+              next: response => {
+                const { token } = response;
+                this.authService.updateToken(token);
+                this.loadData();
+              },
+              error: () => {
+                this.toastr.error('You have to signin');
+              },
+            });
+          } else {
+            this.toastr.error(msg);
+            this.sendToLogin();
+          }
+        },
+      });
   }
 
   handleChange(event: any) {
-    this.loadData(event.target.value);
+    this.search = event.target.value;
+    this.loadData();
   }
 
   syncStats() {
@@ -82,5 +90,10 @@ export class HomeComponent implements OnInit {
 
   getMoreInfo(countryId: string) {
     this.router.navigateByUrl(`statistic/${countryId}`);
+  }
+
+  pageChanged(e: any) {
+    this.currentPage = e.page;
+    this.loadData();
   }
 }
