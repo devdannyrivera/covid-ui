@@ -6,10 +6,11 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: 'statistic', pathMatch: 'full' },
+  { path: 'statistic', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'country/:id', component: CountryStatiscticInfoComponent },
+  { path: 'statistic/:id', component: CountryStatiscticInfoComponent },
 ];
 
 @NgModule({

@@ -60,7 +60,7 @@ export class LoginComponent {
       next: result => {
         const { user, token, refreshToken } = result;
         this.service.setLocalStorage(user, token, refreshToken);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/statistic');
       },
       error: error => {
         const { msg } = error.error;

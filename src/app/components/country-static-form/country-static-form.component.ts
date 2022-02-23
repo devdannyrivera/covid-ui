@@ -100,7 +100,7 @@ export class CountryStaticFormComponent implements OnInit {
               },
             });
           } else {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/statistic');
             this.toastr.error(msg);
           }
         },

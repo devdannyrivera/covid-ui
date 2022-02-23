@@ -81,6 +81,6 @@ export class HomeComponent implements OnInit {
   }
 
   getMoreInfo(countryId: string) {
-    this.router.navigateByUrl(`country/${countryId}`);
+    this.router.navigateByUrl(`statistic/${countryId}`);
   }
 }
