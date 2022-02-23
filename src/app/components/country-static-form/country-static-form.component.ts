@@ -56,16 +56,37 @@ export class CountryStaticFormComponent implements OnInit {
   onSubmit() {
     this.addValuesToCurrentData();
     this.cleanForm();
-
-    this.saveData();
   }
 
   addValuesToCurrentData() {
-    this.currentStat.deaths.total += this.newDeathsField?.value || 0;
-    this.currentStat.tests.total += this.newTestsField?.value || 0;
-    this.currentStat.cases.active += this.newActiveCasesField?.value || 0;
-    this.currentStat.cases.critical += this.newCriticalCasesField?.value || 0;
-    this.currentStat.cases.recovered += this.newRecoveredCasesField?.value || 0;
+    const newDeaths = this.newDeathsField?.value || 0;
+    const newTests = this.newTestsField?.value || 0;
+    const newActiveCases = this.newActiveCasesField?.value || 0;
+    const newCriticalCases = this.newCriticalCasesField?.value || 0;
+    const newRecoveredCases = this.newRecoveredCasesField?.value || 0;
+
+    if (
+      !(
+        newDeaths +
+          newTests +
+          newActiveCases +
+          newCriticalCases +
+          newRecoveredCases >
+        0
+      )
+    ) {
+      return false;
+    }
+
+    this.currentStat.deaths.total += newDeaths;
+    this.currentStat.tests.total += newTests;
+    this.currentStat.cases.total +=
+      newActiveCases + newCriticalCases + newRecoveredCases;
+    this.currentStat.cases.active += newActiveCases;
+    this.currentStat.cases.critical += newCriticalCases;
+    this.currentStat.cases.recovered += newRecoveredCases;
+    this.saveData();
+    return true;
   }
 
   cleanForm() {
